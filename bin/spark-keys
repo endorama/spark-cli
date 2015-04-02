@@ -1,0 +1,38 @@
+#!/usr/bin/env node
+'use strict';
+
+var program = require('commander');
+
+var keysCommand = require('../lib/commands/keys');
+
+program.command('new')
+  .description('Generate a new set of keys for your core')
+  .action(keysCommand.new);
+
+program.command('load')
+  .description('Load a saved key on disk onto your core')
+  .action(keysCommand.load);
+
+program.command('save')
+  .description('Save a key from your core onto your disk')
+  .action(keysCommand.save);
+
+program.command('send')
+  .description('Tell a server which key you\'d like to use by sending your public key')
+  .action(keysCommand.send);
+
+program.command('doctor')
+  .description('Creates and assigns a new key to your core, and uploads it to the cloud')
+  .action(keysCommand.doctor);
+
+program.command('server')
+  .description('Switch server public keys')
+  .action(keysCommand.server);
+
+// run program
+program.parse(process.argv);
+
+// print help and exit if not enough arguments are provided
+if (!process.argv.slice(2).length) {
+  program.help();
+} 

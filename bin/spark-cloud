@@ -1,0 +1,52 @@
+#!/usr/bin/env node
+'use strict';
+
+var program = require('commander');
+
+var cloudCommand = require('../lib/commands/cloud');
+
+// add commands
+program.command('claim <coreId>')
+  .description('Register a core with your user account with the cloude')
+  .action(cloudCommand.claim);
+
+program.command('list')
+  .description('Displays a list of your cores, as well as their variables and functions')
+  .action(cloudCommand.list);
+
+program.command('remove <coreId>')
+  .description('Release a core from your account so that another user may claim it')
+  .action(cloudCommand.remove);
+
+program.command('name <coreId> <name>')
+  .description('Give a core a name!')
+  .action(cloudCommand.name);
+
+program.command('flash <coreId> <filePath>')
+  .description('Pass a binary, source file, or source directory to a core!')
+  .action(cloudCommand.flash);
+
+program.command('compile <sketch>')
+  .description('Compile a source file, or directory using the cloud service')
+  .action(cloudCommand.compile);
+
+program.command('nyan')
+  .description('How long has this been here?')
+  .action(cloudCommand.nyan);
+
+program.command('login')
+  .description('Lets you login to the cloud and stores an access token locally')
+  .action(cloudCommand.login);
+
+program.command('logout')
+  .description('Logs out your session and clears your saved access token')
+  .action(cloudCommand.logout);
+
+
+// run program
+program.parse(process.argv);
+
+// print help and exit if not enough arguments are provided
+if (!process.argv.slice(2).length) {
+  program.help();
+} 
